@@ -2,9 +2,9 @@
 
 namespace Sh1ne\MySqlBot\Controllers;
 
-use Sh1ne\MySqlBot\Core\Controller;
-use Sh1ne\MySqlBot\Core\Request;
-use Sh1ne\MySqlBot\Core\Response;
+use Sh1ne\MySqlBot\Core\Http\Controller;
+use Sh1ne\MySqlBot\Core\Http\Request;
+use Sh1ne\MySqlBot\Core\Http\Response;
 use Sh1ne\MySqlBot\Data\AppMention\AppMentionDto;
 
 class SlackController extends Controller

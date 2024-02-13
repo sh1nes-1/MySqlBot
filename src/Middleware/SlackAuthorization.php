@@ -2,11 +2,11 @@
 
 namespace Sh1ne\MySqlBot\Middleware;
 
-use Sh1ne\MySqlBot\Core\AppConfig;
-use Sh1ne\MySqlBot\Core\JsonResponse;
-use Sh1ne\MySqlBot\Core\Middleware;
-use Sh1ne\MySqlBot\Core\Request;
-use Sh1ne\MySqlBot\Core\Response;
+use Sh1ne\MySqlBot\Core\Config\AppConfig;
+use Sh1ne\MySqlBot\Core\Http\JsonResponse;
+use Sh1ne\MySqlBot\Core\Http\Middleware;
+use Sh1ne\MySqlBot\Core\Http\Request;
+use Sh1ne\MySqlBot\Core\Http\Response;
 
 class SlackAuthorization extends Middleware
 {

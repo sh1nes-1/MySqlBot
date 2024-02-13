@@ -1,6 +1,6 @@
 <?php
 
-namespace Sh1ne\MySqlBot\Core;
+namespace Sh1ne\MySqlBot\Core\Config;
 
 class Env
 {

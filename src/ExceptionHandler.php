@@ -2,10 +2,10 @@
 
 namespace Sh1ne\MySqlBot;
 
-use Sh1ne\MySqlBot\Core\AppConfig;
-use Sh1ne\MySqlBot\Core\ExceptionHandler as ExceptionHandlerContract;
-use Sh1ne\MySqlBot\Core\JsonResponse;
-use Sh1ne\MySqlBot\Core\Response;
+use Sh1ne\MySqlBot\Core\Config\AppConfig;
+use Sh1ne\MySqlBot\Core\Http\ExceptionHandler as ExceptionHandlerContract;
+use Sh1ne\MySqlBot\Core\Http\JsonResponse;
+use Sh1ne\MySqlBot\Core\Http\Response;
 use Throwable;
 
 class ExceptionHandler implements ExceptionHandlerContract
