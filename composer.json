@@ -1,0 +1,21 @@
+{
+    "name": "sh1ne/my-sql-bot",
+    "description": "Bot for Slack that executes SQL",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Sh1ne\\MySqlBot\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Serhiy Kosovchych",
+            "email": "kosovchychserhiy@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
