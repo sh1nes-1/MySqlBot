@@ -9,18 +9,19 @@ class Router
 
     private ExceptionHandler $exceptionHandler;
 
-    private array $routes = [];
+    private MiddlewareList $middlewareList;
 
-    private array $middlewareList = [];
+    private array $routes = [];
 
     public function __construct(ExceptionHandler $exceptionHandler)
     {
         $this->exceptionHandler = $exceptionHandler;
+        $this->middlewareList = new MiddlewareList();
     }
 
     public function middleware(string $prefix, Middleware $middleware) : void
     {
-        $this->middlewareList[] = [$prefix, $middleware];
+        $this->middlewareList->add($prefix, $middleware);
     }
 
     public function get(string $uri, array $action) : void
@@ -46,10 +47,10 @@ class Router
         if (isset($this->routes[$requestUri][$requestMethod])) {
             $action = $this->routes[$requestUri][$requestMethod];
 
-            $requestHandler = $this->getRequestHandler($request, $action);
+            $finalRequestHandler = new FinalRequestHandler($action);
 
             try {
-                $response = $requestHandler->handle($request);
+                $response = $this->middlewareList->handle($request, $finalRequestHandler);
             } catch (Throwable $throwable) {
                 $response = $this->exceptionHandler->handle($throwable);
             }
@@ -59,37 +60,6 @@ class Router
             http_response_code(404);
             echo '404 Not Found';
         }
-    }
-
-    private function getRequestHandler(Request $request, mixed $action) : RequestHandler
-    {
-        $middlewareList = $this->determineMiddlewareForRequest($request);
-
-        $nextMiddleware = new FinalRequestHandler($action);
-
-        for ($i = count($middlewareList) - 1; $i >= 0; $i--) {
-            $middlewareList[$i]->setNext($nextMiddleware);
-
-            $nextMiddleware = $middlewareList[$i];
-        }
-
-        return $nextMiddleware;
-    }
-
-    /**
-     * @return array<Middleware>
-     */
-    private function determineMiddlewareForRequest(Request $request) : array
-    {
-        $result = [];
-
-        foreach ($this->middlewareList as [$prefix, $middleware]) {
-            if (str_starts_with($request->uri(), $prefix)) {
-                $result[] = $middleware;
-            }
-        }
-
-        return $result;
     }
 
     private function sendResponse(Response $response) : void

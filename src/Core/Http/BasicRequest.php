@@ -20,7 +20,7 @@ class BasicRequest implements Request
         return $_GET[$key] ?? null;
     }
 
-    public function header(string $key)
+    public function header(string $key) : ?string
     {
         $headers = getallheaders();
 

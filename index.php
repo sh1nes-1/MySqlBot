@@ -12,10 +12,12 @@ use Sh1ne\MySqlBot\Middleware\SlackAuthorization;
 
 Dotenv\Dotenv::createImmutable(__DIR__)->safeLoad();
 
-$exceptionHandler = new ExceptionHandler(new BasicResponseFactory());
+$responseFactory = new BasicResponseFactory();
+
+$exceptionHandler = new ExceptionHandler($responseFactory);
 $router = new Router($exceptionHandler);
 
-$router->middleware('/api/v1/slack/', new SlackAuthorization());
+$router->middleware('/api/v1/slack/', new SlackAuthorization($responseFactory));
 $router->get('/api/v1/slack/events/app_mention', [SlackController::class, 'mentionEvent']);
 
 $request = new BasicRequest();
