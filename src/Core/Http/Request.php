@@ -11,6 +11,8 @@ interface Request
 
     public function get(string $key) : mixed;
 
+    public function input(string $key) : mixed;
+
     public function header(string $key) : ?string;
 
     public function rawBody() : string;

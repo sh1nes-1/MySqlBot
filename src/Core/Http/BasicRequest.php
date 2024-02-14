@@ -20,6 +20,12 @@ class BasicRequest implements Request
         return $_GET[$key] ?? null;
     }
 
+    public function input(string $key) : mixed
+    {
+        // TODO: fix for json
+        return $_POST[$key] ?? null;
+    }
+
     public function header(string $key) : ?string
     {
         $headers = getallheaders();
@@ -35,6 +41,7 @@ class BasicRequest implements Request
 
     public function body() : array
     {
+        // TODO: fix for json
         return $_POST;
     }
 
