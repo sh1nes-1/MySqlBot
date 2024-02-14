@@ -5,10 +5,11 @@ require_once __DIR__ . '/vendor/autoload.php';
 use Sh1ne\MySqlBot\Controllers\SlackController;
 use Sh1ne\MySqlBot\Core\Http\BasicRequest;
 use Sh1ne\MySqlBot\Core\Http\BasicResponseFactory;
-use Sh1ne\MySqlBot\Core\Http\Request;
 use Sh1ne\MySqlBot\Core\Http\Router;
 use Sh1ne\MySqlBot\ExceptionHandler;
 use Sh1ne\MySqlBot\Middleware\SlackAuthorization;
+
+error_reporting(0);
 
 Dotenv\Dotenv::createImmutable(__DIR__)->safeLoad();
 

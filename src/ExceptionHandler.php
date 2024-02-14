@@ -23,6 +23,7 @@ class ExceptionHandler extends ExceptionHandlerContract
         } else {
             $data = [
                 'message' => 'An error occurred',
+                'time' => time(),
             ];
         }
 
