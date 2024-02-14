@@ -14,7 +14,7 @@ class SlackController extends Controller
     {
         $appMentionDto = new AppMentionDto($request->body());
 
-        return $this->json([
+        return $this->responseFactory->json([
             'success' => 'true',
         ]);
     }

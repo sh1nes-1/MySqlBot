@@ -4,9 +4,16 @@ namespace Sh1ne\MySqlBot\Core\Http;
 
 use Throwable;
 
-interface ExceptionHandler
+abstract class ExceptionHandler
 {
 
-    public function handle(Throwable $throwable) : Response;
+    protected ResponseFactory $responseFactory;
+
+    public function __construct(ResponseFactory $responseFactory)
+    {
+        $this->responseFactory = $responseFactory;
+    }
+
+    abstract public function handle(Throwable $throwable) : Response;
 
 }

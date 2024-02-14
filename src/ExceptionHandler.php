@@ -4,11 +4,10 @@ namespace Sh1ne\MySqlBot;
 
 use Sh1ne\MySqlBot\Core\Config\AppConfig;
 use Sh1ne\MySqlBot\Core\Http\ExceptionHandler as ExceptionHandlerContract;
-use Sh1ne\MySqlBot\Core\Http\JsonResponse;
 use Sh1ne\MySqlBot\Core\Http\Response;
 use Throwable;
 
-class ExceptionHandler implements ExceptionHandlerContract
+class ExceptionHandler extends ExceptionHandlerContract
 {
 
     public function handle(Throwable $throwable) : Response
@@ -27,7 +26,7 @@ class ExceptionHandler implements ExceptionHandlerContract
             ];
         }
 
-        return new JsonResponse($data, 422);
+        return $this->responseFactory->json($data, 422);
     }
 
 }

@@ -16,7 +16,7 @@ class FinalRequestHandler implements RequestHandler
     {
         [$controllerClass, $controllerMethod] = $this->action;
 
-        $controller = new $controllerClass();
+        $controller = new $controllerClass(new BasicResponseFactory());
 
         return $controller->$controllerMethod($request);
     }

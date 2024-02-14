@@ -5,9 +5,11 @@ namespace Sh1ne\MySqlBot\Core\Http;
 class Controller
 {
 
-    public function json(mixed $data) : Response
+    protected ResponseFactory $responseFactory;
+
+    public function __construct(ResponseFactory $responseFactory)
     {
-        return new JsonResponse($data);
+        $this->responseFactory = $responseFactory;
     }
 
 }
