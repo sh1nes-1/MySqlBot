@@ -2,6 +2,7 @@
 
 use PHPUnit\Framework\MockObject\Exception as MockException;
 use PHPUnit\Framework\TestCase;
+use Sh1ne\MySqlBot\Core\Config\Env;
 use Sh1ne\MySqlBot\Core\Http\Response;
 use Sh1ne\MySqlBot\Core\Http\ResponseFactory;
 use Sh1ne\MySqlBot\ExceptionHandler;
@@ -15,7 +16,7 @@ class ExceptionHandlerTest extends TestCase
      */
     public function testHandle(bool $appDebug, callable $jsonCallback) : void
     {
-        $_ENV['APP_DEBUG'] = $appDebug;
+        Env::set('APP_DEBUG', $appDebug);
 
         $expectedResponse = $this->createStub(Response::class);
 

@@ -2,34 +2,19 @@
 
 namespace Sh1ne\MySqlBot\Core\Http;
 
-class Request
+interface Request
 {
 
-    public function uri() : string
-    {
-        return $_SERVER['REQUEST_URI'];
-    }
+    public function uri() : string;
 
-    public function method() : string
-    {
-        return $_SERVER['REQUEST_METHOD'];
-    }
+    public function method() : string;
 
-    public function get(string $key) : mixed
-    {
-        return $_GET[$key] ?? null;
-    }
+    public function get(string $key) : mixed;
 
-    public function header(string $key)
-    {
-        $headers = getallheaders();
+    public function header(string $key) : ?string;
 
-        return $headers[$key] ?? null;
-    }
+    public function rawBody() : string;
 
-    public function body() : array
-    {
-        return $_POST;
-    }
+    public function body() : array;
 
 }
