@@ -3,6 +3,7 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Sh1ne\MySqlBot\Controllers\SlackController;
+use Sh1ne\MySqlBot\Core\Http\BasicOutput;
 use Sh1ne\MySqlBot\Core\Http\BasicRequest;
 use Sh1ne\MySqlBot\Core\Http\BasicResponseFactory;
 use Sh1ne\MySqlBot\Core\Http\Router;
@@ -17,7 +18,9 @@ Dotenv\Dotenv::createImmutable(__DIR__)->safeLoad();
 $responseFactory = new BasicResponseFactory();
 
 $exceptionHandler = new ExceptionHandler($responseFactory);
-$router = new Router($exceptionHandler);
+$output = new BasicOutput();
+
+$router = new Router($exceptionHandler, $output);
 
 $router->middleware('/api/v1/slack/events/', new SlackVerificationMiddleware($responseFactory));
 $router->middleware('/api/v1/slack/', new SlackAuthorization($responseFactory));

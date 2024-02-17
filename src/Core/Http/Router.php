@@ -9,13 +9,16 @@ class Router
 
     private ExceptionHandler $exceptionHandler;
 
+    private Output $output;
+
     private MiddlewareList $middlewareList;
 
     private array $routes = [];
 
-    public function __construct(ExceptionHandler $exceptionHandler)
+    public function __construct(ExceptionHandler $exceptionHandler, Output $output)
     {
         $this->exceptionHandler = $exceptionHandler;
+        $this->output = $output;
         $this->middlewareList = new MiddlewareList();
     }
 
@@ -55,22 +58,12 @@ class Router
                 $response = $this->exceptionHandler->handle($throwable);
             }
 
-            $this->sendResponse($response);
+            $this->output->sendResponse($response);
         } else {
-            http_response_code(404);
-            echo '404 Not Found';
+            $notFoundResponse = new JsonResponse('Not found', 404);
+
+            $this->output->sendResponse($notFoundResponse);
         }
-    }
-
-    private function sendResponse(Response $response) : void
-    {
-        http_response_code($response->getStatusCode());
-
-        foreach ($response->getHeaders() as $key => $value) {
-            header("$key: $value");
-        }
-
-        echo $response->getBodyAsText();
     }
 
 }
