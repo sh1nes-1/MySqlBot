@@ -10,6 +10,9 @@ use Sh1ne\MySqlBot\Core\Http\Request;
 use Sh1ne\MySqlBot\Core\Http\RequestHandler;
 use Sh1ne\MySqlBot\Core\Http\Response;
 
+/**
+ * @covers MiddlewareList
+ */
 class MiddlewareListTest extends TestCase
 {
 
