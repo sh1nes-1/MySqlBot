@@ -60,7 +60,9 @@ class Router
 
             $this->output->sendResponse($response);
         } else {
-            $notFoundResponse = new JsonResponse('Not found', 404);
+            $notFoundResponse = new JsonResponse([
+                'message' => 'Not found',
+            ], 404);
 
             $this->output->sendResponse($notFoundResponse);
         }

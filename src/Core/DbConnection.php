@@ -5,6 +5,6 @@ namespace Sh1ne\MySqlBot\Core;
 interface DbConnection
 {
 
-    public function execute(string $sql) : array;
+    public function query(string $sql, array $params = []) : array;
 
 }

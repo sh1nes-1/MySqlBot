@@ -22,26 +22,36 @@ class BasicRequest implements Request
 
     public function input(string $key) : mixed
     {
-        // TODO: fix for json
-        return $_POST[$key] ?? null;
+        $body = $this->body();
+
+        return $body[$key] ?? null;
+    }
+
+    public function headers() : array
+    {
+        return getallheaders();
     }
 
     public function header(string $key) : ?string
     {
-        $headers = getallheaders();
+        $headers = $this->headers();
 
         return $headers[$key] ?? null;
     }
 
     public function rawBody() : string
     {
-        // TODO: implement
-        return '';
+        return file_get_contents('php://input');
     }
 
     public function body() : array
     {
-        // TODO: fix for json
+        $contentType = $this->header('Content-Type');
+
+        if (str_contains($contentType, 'application/json')) {
+            return json_decode($this->rawBody(), true);
+        }
+
         return $_POST;
     }
 

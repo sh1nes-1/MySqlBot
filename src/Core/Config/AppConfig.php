@@ -12,6 +12,16 @@ class AppConfig
         return self::getBool('APP_DEBUG');
     }
 
+    public static function getBotName() : string
+    {
+        return self::get('BOT_NAME');
+    }
+
+    public static function getSlackApiKey() : string
+    {
+        return self::get('SLACK_API_KEY');
+    }
+
     public static function getSlackSigningSecret() : string
     {
         return self::get('SLACK_SIGNING_SECRET');

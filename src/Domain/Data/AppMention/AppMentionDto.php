@@ -1,6 +1,6 @@
 <?php
 
-namespace Sh1ne\MySqlBot\Data\AppMention;
+namespace Sh1ne\MySqlBot\Domain\Data\AppMention;
 
 /**
  * @link https://api.slack.com/events/app_mention
@@ -54,7 +54,7 @@ class AppMentionDto
         $this->type = $data['type'];
         $this->eventId = $data['event_id'];
         $this->eventTime = $data['event_time'];
-        $this->authedUsers = $data['authed_users'];
+        $this->authedUsers = $data['authed_users'] ?? [];
     }
 
 }

@@ -13,6 +13,8 @@ interface Request
 
     public function input(string $key) : mixed;
 
+    public function headers() : array;
+
     public function header(string $key) : ?string;
 
     public function rawBody() : string;

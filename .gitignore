@@ -2,4 +2,5 @@
 /.idea
 /.env
 /.phpunit.cache
+/logs
 .phpunit.result.cache
