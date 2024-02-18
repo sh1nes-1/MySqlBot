@@ -3,8 +3,9 @@
 namespace Sh1ne\MySqlBot\Controllers;
 
 use GuzzleHttp\Client;
-use Sh1ne\MySqlBot\Core\BasicDbConnection;
 use Sh1ne\MySqlBot\Core\Config\AppConfig;
+use Sh1ne\MySqlBot\Core\Database\BasicDbConnection;
+use Sh1ne\MySqlBot\Core\Database\DbConnectionWithLog;
 use Sh1ne\MySqlBot\Core\Http\Controller;
 use Sh1ne\MySqlBot\Core\Http\Request;
 use Sh1ne\MySqlBot\Core\Http\Response;
@@ -20,7 +21,15 @@ class SlackController extends Controller
         // TODO: determine which DTO to instantiate, as there is single URL for all events
         $appMentionDto = new AppMentionDto($request->body());
 
-        $dbConnection = new BasicDbConnection();
+        $dbConnection = new BasicDbConnection(
+            AppConfig::getDbHost(),
+            AppConfig::getDbPort(),
+            AppConfig::getDbUser(),
+            AppConfig::getDbPassword(),
+            AppConfig::getDbName()
+        );
+
+        $dbConnection = new DbConnectionWithLog($dbConnection);
 
         $client = new Client([
             'base_uri' => 'https://slack.com/api/',

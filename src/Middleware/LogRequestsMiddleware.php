@@ -13,6 +13,7 @@ class LogRequestsMiddleware extends Middleware
     // TODO: change error handler logic to go here too
     public function handle(Request $request) : Response
     {
+        // TODO: do not log headers on production
         Log::info("Request {$request->method()} {$request->uri()}", [
             'body' => $request->body(),
             'headers' => $request->headers(),

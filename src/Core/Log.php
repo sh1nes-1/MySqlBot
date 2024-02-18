@@ -15,7 +15,17 @@ class Log
         static::$traceId = (string) random_int(100000000, 999999999);
     }
 
+    public static function debug(string $message, array $context = []) : void
+    {
+        self::log('DEBUG', $context, $message);
+    }
+
     public static function info(string $message, array $context = []) : void
+    {
+        self::log('INFO', $context, $message);
+    }
+
+    private static function log(string $level, array $context, string $message) : void
     {
         $traceId = self::$traceId;
 
@@ -23,7 +33,7 @@ class Log
 
         $contextJson = !empty($context) ? json_encode($context) : '';
 
-        $message = "[$dateTime][$traceId] $message $contextJson\n";
+        $message = "[$dateTime][$traceId][$level] $message $contextJson\n";
 
         file_put_contents(static::$filename, $message, FILE_APPEND);
     }

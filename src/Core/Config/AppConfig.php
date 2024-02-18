@@ -27,6 +27,31 @@ class AppConfig
         return self::get('SLACK_SIGNING_SECRET');
     }
 
+    public static function getDbHost() : string
+    {
+        return self::get('DB_HOST');
+    }
+
+    public static function getDbPort() : string
+    {
+        return self::get('DB_PORT');
+    }
+
+    public static function getDbUser() : string
+    {
+        return self::get('DB_USER');
+    }
+
+    public static function getDbPassword() : string
+    {
+        return self::get('DB_PASSWORD');
+    }
+
+    public static function getDbName() : string
+    {
+        return self::get('DB_NAME');
+    }
+
     private static function getBool(string $key) : bool
     {
         $value = self::get($key);

@@ -3,7 +3,10 @@
 namespace Sh1ne\MySqlBot\Domain\Services;
 
 use Sh1ne\MySqlBot\Core\Config\AppConfig;
-use Sh1ne\MySqlBot\Core\DbConnection;
+use Sh1ne\MySqlBot\Core\Database\DbConnection;
+use Sh1ne\MySqlBot\Core\Database\DbException;
+use Sh1ne\MySqlBot\Core\Database\ReadOnlyException;
+use Sh1ne\MySqlBot\Core\Log;
 use Sh1ne\MySqlBot\Domain\Data\AppMention\AppMentionDto;
 use Sh1ne\MySqlBot\Domain\Messenger\Messenger;
 
@@ -24,18 +27,26 @@ class BotService
     {
         $sql = $this->extractSql($appMentionDto);
 
-        $result = $this->dbConnection->query($sql);
+        Log::info('Extracted SQL', [
+            'sql' => $sql,
+        ]);
 
-        $csvResult = $this->convertToCsv($result);
+        try {
+            $result = $this->dbConnection->query($sql);
 
-        $this->messenger->sendMessage("Your result is ready\n$csvResult");
+            $csvResult = $this->convertToCsv($result);
+
+            $this->messenger->sendMessage("Your result is ready ```$csvResult```");
+        } catch (DbException | ReadOnlyException $exception) {
+            $this->messenger->sendMessage("Failed to execute SQL ```{$exception->getMessage()}```");
+        }
     }
 
     private function extractSql(AppMentionDto $appMentionDto) : string
     {
         $botName = AppConfig::getBotName();
 
-        $message = str_replace("<@$botName>", '', $appMentionDto->event->text);
+        $message = str_replace(['```', "<@$botName>"], '', $appMentionDto->event->text);
 
         return trim($message);
     }
