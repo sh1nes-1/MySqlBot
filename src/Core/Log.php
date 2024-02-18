@@ -5,6 +5,8 @@ namespace Sh1ne\MySqlBot\Core;
 class Log
 {
 
+    private static bool $isInitialized = false;
+
     private static string $filename;
 
     private static string $traceId;
@@ -13,6 +15,7 @@ class Log
     {
         static::$filename = $filename;
         static::$traceId = (string) random_int(100000000, 999999999);
+        static::$isInitialized = true;
     }
 
     public static function debug(string $message, array $context = []) : void
@@ -27,6 +30,10 @@ class Log
 
     private static function log(string $level, array $context, string $message) : void
     {
+        if (!self::$isInitialized) {
+            return;
+        }
+
         $traceId = self::$traceId;
 
         $dateTime = date('Y-m-d H:i:s');
