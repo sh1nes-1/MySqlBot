@@ -17,6 +17,11 @@ class AppConfig
         return self::get('BOT_NAME');
     }
 
+    public static function getSlackApiBaseUrl() : string
+    {
+        return self::get('SLACK_API_BASE_URL');
+    }
+
     public static function getSlackApiKey() : string
     {
         return self::get('SLACK_API_KEY');

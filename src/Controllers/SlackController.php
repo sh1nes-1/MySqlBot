@@ -32,7 +32,7 @@ class SlackController extends Controller
         $dbConnection = new DbConnectionWithLog($dbConnection);
 
         $client = new Client([
-            'base_uri' => 'https://slack.com/api/',
+            'base_uri' => AppConfig::getSlackApiBaseUrl(),
             'headers' => [
                 'Authorization' => 'Bearer ' . AppConfig::getSlackApiKey(),
             ],
