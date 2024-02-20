@@ -9,6 +9,7 @@ use Sh1ne\MySqlBot\Core\Database\ReadOnlyException;
 use Sh1ne\MySqlBot\Core\Log;
 use Sh1ne\MySqlBot\Domain\Data\AppMention\AppMentionDto;
 use Sh1ne\MySqlBot\Domain\Messenger\Messenger;
+use Sh1ne\MySqlBot\Domain\ResultFormat\ResultFormatFactory;
 
 class BotService
 {
@@ -34,9 +35,9 @@ class BotService
         try {
             $result = $this->dbConnection->query($sql);
 
-            $csvResult = $this->convertToCsv($result);
+            $resultFormat = (new ResultFormatFactory())->make($result);
 
-            $this->messenger->sendMessage("Your result is ready ```$csvResult```");
+            $resultFormat->sendWithMessage($this->messenger, 'Your result is ready');
         } catch (DbException | ReadOnlyException $exception) {
             $this->messenger->sendMessage("Failed to execute SQL ```{$exception->getMessage()}```");
         }
@@ -49,17 +50,6 @@ class BotService
         $message = str_replace(['```', "<@$botName>"], '', $appMentionDto->event->text);
 
         return trim($message);
-    }
-
-    private function convertToCsv(array $result) : string
-    {
-        $csvResult = '';
-
-        foreach ($result as $row) {
-            $csvResult .= implode(',', $row) . "\n";
-        }
-
-        return $csvResult;
     }
 
 }

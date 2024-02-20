@@ -14,7 +14,7 @@ class DbConnectionWithLog implements DbConnection
         $this->dbConnection = $dbConnection;
     }
 
-    public function query(string $sql, array $params = []) : array
+    public function query(string $sql, array $params = []) : QueryResult
     {
         $timeBefore = microtime(true);
 
@@ -24,7 +24,7 @@ class DbConnectionWithLog implements DbConnection
 
         Log::debug('SQL query finished', [
             'time' => $queryTime,
-            'rows_count' => count($result),
+            'rows_count' => count($result->getRows()),
         ]);
 
         return $result;

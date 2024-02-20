@@ -4,6 +4,7 @@ namespace Sh1ne\MySqlBot\Core\Database;
 
 use Exception;
 use PDO;
+use PDOStatement;
 
 class BasicDbConnection implements DbConnection
 {
@@ -21,7 +22,7 @@ class BasicDbConnection implements DbConnection
      * @throws ReadOnlyException
      * @throws DbException
      */
-    public function query(string $sql, array $params = []) : array
+    public function query(string $sql, array $params = []) : QueryResult
     {
         if (!$this->isReadOnlySql($sql)) {
             throw new ReadOnlyException('Query is modifying data');
@@ -49,13 +50,7 @@ class BasicDbConnection implements DbConnection
         return true;
     }
 
-    /**
-     * @param string $sql
-     * @param array $params
-     *
-     * @return array<array<string, mixed>>
-     */
-    public function executeQuery(string $sql, array $params) : array
+    public function executeQuery(string $sql, array $params) : QueryResult
     {
         $statement = $this->pdo->prepare($sql);
 
@@ -64,10 +59,23 @@ class BasicDbConnection implements DbConnection
         $data = $statement->fetchAll();
 
         if ($data === false) {
-            return [];
+            $data = [];
         }
 
-        return $data;
+        return new QueryResult($this->getColumns($statement), $data);
+    }
+
+    private function getColumns(PDOStatement $statement) : array
+    {
+        $columns = [];
+
+        for ($i = 0; $i < $statement->columnCount(); $i++) {
+            $column = $statement->getColumnMeta($i);
+
+            $columns[] = $column['name'];
+        }
+
+        return $columns;
     }
 
 }
