@@ -8,6 +8,7 @@ Bot for Slack written in PHP that executes SQL queries and sends results back to
 
 ## Roadmap
 
+- Use Block-Kit interactive components
 - Ability to set timeout for query
 - Ability to drop running query
 - Multiple SQL queries in one message

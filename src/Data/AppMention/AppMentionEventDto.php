@@ -1,6 +1,6 @@
 <?php
 
-namespace Sh1ne\MySqlBot\Domain\Data\AppMention;
+namespace Sh1ne\MySqlBot\Data\AppMention;
 
 /**
  * @see AppMentionDto

@@ -9,7 +9,7 @@ use Sh1ne\MySqlBot\Core\Database\DbConnectionWithLog;
 use Sh1ne\MySqlBot\Core\Http\Controller;
 use Sh1ne\MySqlBot\Core\Http\Request;
 use Sh1ne\MySqlBot\Core\Http\Response;
-use Sh1ne\MySqlBot\Domain\Data\AppMention\AppMentionDto;
+use Sh1ne\MySqlBot\Data\AppMention\AppMentionDto;
 use Sh1ne\MySqlBot\Domain\Messenger\SlackMessenger;
 use Sh1ne\MySqlBot\Domain\Services\BotService;
 
@@ -40,7 +40,7 @@ class SlackController extends Controller
 
         $messenger = new SlackMessenger($client, $appMentionDto->event->channel, $appMentionDto->event->ts);
 
-        (new BotService($dbConnection, $messenger))->processAppMention($appMentionDto);
+        (new BotService($dbConnection, $messenger))->processAppMention($appMentionDto->event->text);
 
         return $this->responseFactory->json([
             'success' => 'true',

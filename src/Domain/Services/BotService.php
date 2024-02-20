@@ -7,7 +7,7 @@ use Sh1ne\MySqlBot\Core\Database\DbConnection;
 use Sh1ne\MySqlBot\Core\Database\DbException;
 use Sh1ne\MySqlBot\Core\Database\ReadOnlyException;
 use Sh1ne\MySqlBot\Core\Log;
-use Sh1ne\MySqlBot\Domain\Data\AppMention\AppMentionDto;
+use Sh1ne\MySqlBot\Data\AppMention\AppMentionDto;
 use Sh1ne\MySqlBot\Domain\Messenger\Messenger;
 use Sh1ne\MySqlBot\Domain\ResultFormat\ResultFormatFactory;
 
@@ -24,9 +24,9 @@ class BotService
         $this->messenger = $messenger;
     }
 
-    public function processAppMention(AppMentionDto $appMentionDto) : void
+    public function processAppMention(string $text) : void
     {
-        $sql = $this->extractSql($appMentionDto);
+        $sql = $this->extractSql($text);
 
         Log::info('Extracted SQL', [
             'sql' => $sql,
@@ -43,11 +43,11 @@ class BotService
         }
     }
 
-    private function extractSql(AppMentionDto $appMentionDto) : string
+    private function extractSql(string $text) : string
     {
         $botName = AppConfig::getBotName();
 
-        $message = str_replace(['```', "<@$botName>"], '', $appMentionDto->event->text);
+        $message = str_replace(['```', "<@$botName>"], '', $text);
 
         return trim($message);
     }
