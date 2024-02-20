@@ -7,4 +7,6 @@ interface Messenger
 
     public function sendMessage(string $message) : void;
 
+    public function uploadFile(File $file, string $message) : void;
+
 }

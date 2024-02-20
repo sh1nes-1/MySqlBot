@@ -9,7 +9,8 @@ class ResultFormatFactory
 
     public function make(QueryResult $result) : ResultFormat
     {
-        return new CsvMessage($result);
+        // return new CsvMessage($result);
+        return new CsvFile($result);
     }
 
 }

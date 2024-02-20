@@ -29,18 +29,46 @@ class SlackMessenger implements Messenger
      */
     public function sendMessage(string $message) : void
     {
-        $payload = [
-            'channel' => $this->channel,
-            'thread_ts' => $this->threadTs,
-            'text' => $message,
-        ];
-
         $response = $this->client->post('chat.postMessage', [
             RequestOptions::HEADERS => [
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json; charset=utf-8',
             ],
-            RequestOptions::JSON => $payload,
+            RequestOptions::JSON => [
+                'channel' => $this->channel,
+                'thread_ts' => $this->threadTs,
+                'text' => $message,
+            ],
+        ]);
+
+        $body = $response->getBody()->getContents();
+
+        $response = json_decode($body, true);
+
+        if ($response['ok'] !== true) {
+            throw new Exception($body);
+        }
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws Exception
+     */
+    public function uploadFile(File $file, string $message) : void
+    {
+        $response = $this->client->post('files.upload', [
+            RequestOptions::HEADERS => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8',
+            ],
+            RequestOptions::FORM_PARAMS => [
+                'channels' => $this->channel,
+                'thread_ts' => $this->threadTs,
+                'initial_comment' => $message,
+                'filename' => $file->getName(),
+                'filetype' => $file->getType(),
+                'content' => $file->getContent(),
+            ],
         ]);
 
         $body = $response->getBody()->getContents();
