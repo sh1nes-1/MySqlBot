@@ -28,6 +28,11 @@ class Log
         self::log('INFO', $context, $message);
     }
 
+    public static function critical(string $message, array $context = []) : void
+    {
+        self::log('CRITICAL', $context, $message);
+    }
+
     private static function log(string $level, array $context, string $message) : void
     {
         if (!self::$isInitialized) {

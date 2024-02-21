@@ -9,22 +9,24 @@ use Sh1ne\MySqlBot\Core\Http\BasicRequest;
 use Sh1ne\MySqlBot\Core\Http\BasicResponseFactory;
 use Sh1ne\MySqlBot\Core\Http\Router;
 use Sh1ne\MySqlBot\Core\Log;
+use Sh1ne\MySqlBot\ErrorHandler;
 use Sh1ne\MySqlBot\ExceptionHandler;
 use Sh1ne\MySqlBot\Middleware\LogRequestsMiddleware;
 use Sh1ne\MySqlBot\Middleware\SlackAuthorization;
 use Sh1ne\MySqlBot\Middleware\SlackVerificationMiddleware;
 
-error_reporting(0);
+$output = new BasicOutput();
+$responseFactory = new BasicResponseFactory();
+
+$errorHandler = new ErrorHandler($output, $responseFactory);
+$errorHandler->disableErrorReporting();
+$errorHandler->registerShutdownCallback();
 
 Dotenv\Dotenv::createImmutable(__DIR__)->safeLoad();
 
 Log::init(__DIR__ . '/logs/app.log');
 
-$responseFactory = new BasicResponseFactory();
-
 $exceptionHandler = new ExceptionHandler($responseFactory);
-$output = new BasicOutput();
-
 $router = new Router($exceptionHandler, $output);
 
 $router->middleware('/', new LogRequestsMiddleware($responseFactory));
