@@ -14,11 +14,11 @@ class DbConnectionWithLog implements DbConnection
         $this->dbConnection = $dbConnection;
     }
 
-    public function query(string $sql, array $params = []) : QueryResult
+    public function query(SqlQuery $sqlQuery, array $params = []) : QueryResult
     {
         $timeBefore = microtime(true);
 
-        $result = $this->dbConnection->query($sql, $params);
+        $result = $this->dbConnection->query($sqlQuery, $params);
 
         $queryTime = microtime(true) - $timeBefore;
 

@@ -2,18 +2,10 @@
 
 namespace Sh1ne\MySqlBot\Domain\ResultFormat;
 
-use Sh1ne\MySqlBot\Core\Database\QueryResult;
 use Sh1ne\MySqlBot\Domain\Messenger\Messenger;
 
-class CsvMessage implements ResultFormat
+class CsvMessage extends ResultFormat
 {
-
-    private QueryResult $result;
-
-    public function __construct(QueryResult $result)
-    {
-        $this->result = $result;
-    }
 
     public function sendWithMessage(Messenger $messenger, string $message) : void
     {

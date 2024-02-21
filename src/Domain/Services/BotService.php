@@ -6,6 +6,7 @@ use Sh1ne\MySqlBot\Core\Config\AppConfig;
 use Sh1ne\MySqlBot\Core\Database\DbConnection;
 use Sh1ne\MySqlBot\Core\Database\DbException;
 use Sh1ne\MySqlBot\Core\Database\ReadOnlyException;
+use Sh1ne\MySqlBot\Core\Database\SqlQuery;
 use Sh1ne\MySqlBot\Core\Log;
 use Sh1ne\MySqlBot\Data\AppMention\AppMentionDto;
 use Sh1ne\MySqlBot\Domain\Messenger\Messenger;
@@ -33,9 +34,11 @@ class BotService
         ]);
 
         try {
-            $result = $this->dbConnection->query($sql);
+            $sqlQuery = new SqlQuery($sql);
 
-            $resultFormat = (new ResultFormatFactory())->make($result);
+            $result = $this->dbConnection->query($sqlQuery);
+
+            $resultFormat = (new ResultFormatFactory())->make($sqlQuery, $result);
 
             $resultFormat->sendWithMessage($this->messenger, 'Your result is ready');
         } catch (DbException | ReadOnlyException $exception) {

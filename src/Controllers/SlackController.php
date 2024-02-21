@@ -18,6 +18,7 @@ class SlackController extends Controller
 
     public function handleEvent(Request $request) : Response
     {
+        // TODO: handle event in queue, because when we don't respond in 3 seconds, slack will mark it as timeout and repeat
         // TODO: determine which DTO to instantiate, as there is single URL for all events
         $appMentionDto = new AppMentionDto($request->body());
 

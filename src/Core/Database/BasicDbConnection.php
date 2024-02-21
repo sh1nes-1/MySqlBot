@@ -22,37 +22,22 @@ class BasicDbConnection implements DbConnection
      * @throws ReadOnlyException
      * @throws DbException
      */
-    public function query(string $sql, array $params = []) : QueryResult
+    public function query(SqlQuery $sqlQuery, array $params = []) : QueryResult
     {
-        if (!$this->isReadOnlySql($sql)) {
+        if (!$sqlQuery->isReadOnly()) {
             throw new ReadOnlyException('Query is modifying data');
         }
 
         try {
-            return $this->executeQuery($sql, $params);
+            return $this->executeQuery($sqlQuery, $params);
         } catch (Exception $e) {
             throw new DbException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
-    private function isReadOnlySql(string $sql) : bool
+    public function executeQuery(SqlQuery $sqlQuery, array $params) : QueryResult
     {
-        $sql = strtoupper(trim($sql));
-
-        $forbiddenKeywords = ['INSERT', 'UPDATE', 'DELETE', 'CREATE', 'ALTER', 'DROP', 'TRUNCATE', 'RENAME'];
-
-        foreach ($forbiddenKeywords as $query) {
-            if (str_starts_with($sql, $query)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    public function executeQuery(string $sql, array $params) : QueryResult
-    {
-        $statement = $this->pdo->prepare($sql);
+        $statement = $this->pdo->prepare($sqlQuery->getSql());
 
         $statement->execute($params);
 

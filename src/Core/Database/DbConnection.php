@@ -9,6 +9,6 @@ interface DbConnection
      * @throws DbException
      * @throws ReadOnlyException
      */
-    public function query(string $sql, array $params = []) : QueryResult;
+    public function query(SqlQuery $sqlQuery, array $params = []) : QueryResult;
 
 }
