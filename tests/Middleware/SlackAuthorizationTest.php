@@ -8,6 +8,7 @@ use Sh1ne\MySqlBot\Core\Config\Env;
 use Sh1ne\MySqlBot\Core\Http\Request;
 use Sh1ne\MySqlBot\Core\Http\RequestHandler;
 use Sh1ne\MySqlBot\Core\Http\ResponseFactory;
+use Sh1ne\MySqlBot\Core\ServiceContainer;
 use Sh1ne\MySqlBot\Middleware\SlackAuthorization;
 use PHPUnit\Framework\TestCase;
 
@@ -53,7 +54,9 @@ class SlackAuthorizationTest extends TestCase
             ->method('handle')
             ->with($request);
 
-        $middleware = new SlackAuthorization($responseFactory);
+        ServiceContainer::instance()->singletonByInstance(ResponseFactory::class, $responseFactory);
+
+        $middleware = new SlackAuthorization();
         $middleware->setNext($next);
         $middleware->handle($request);
     }
@@ -89,7 +92,9 @@ class SlackAuthorizationTest extends TestCase
         $next->expects($this->never())
             ->method('handle');
 
-        $middleware = new SlackAuthorization($responseFactory);
+        ServiceContainer::instance()->singletonByInstance(ResponseFactory::class, $responseFactory);
+
+        $middleware = new SlackAuthorization();
         $middleware->setNext($next);
         $middleware->handle($request);
     }
@@ -130,7 +135,9 @@ class SlackAuthorizationTest extends TestCase
         $next->expects($this->never())
             ->method('handle');
 
-        $middleware = new SlackAuthorization($responseFactory);
+        ServiceContainer::instance()->singletonByInstance(ResponseFactory::class, $responseFactory);
+
+        $middleware = new SlackAuthorization();
         $middleware->setNext($next);
         $middleware->handle($request);
     }

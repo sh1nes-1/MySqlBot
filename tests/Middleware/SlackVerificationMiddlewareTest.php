@@ -6,6 +6,7 @@ use PHPUnit\Framework\MockObject\Exception;
 use Sh1ne\MySqlBot\Core\Http\Request;
 use Sh1ne\MySqlBot\Core\Http\Response;
 use Sh1ne\MySqlBot\Core\Http\ResponseFactory;
+use Sh1ne\MySqlBot\Core\ServiceContainer;
 use Sh1ne\MySqlBot\Middleware\SlackVerificationMiddleware;
 use PHPUnit\Framework\TestCase;
 
@@ -34,7 +35,9 @@ class SlackVerificationMiddlewareTest extends TestCase
             ])
             ->willReturn($expectedResponse);
 
-        $slackVerificationMiddleware = new SlackVerificationMiddleware($responseFactory);
+        ServiceContainer::instance()->singletonByInstance(ResponseFactory::class, $responseFactory);
+
+        $slackVerificationMiddleware = new SlackVerificationMiddleware();
 
         $response = $slackVerificationMiddleware->handle($request);
 
