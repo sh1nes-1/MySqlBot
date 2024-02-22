@@ -33,7 +33,7 @@ class MiddlewareListTest extends TestCase
         $middlewareList = new MiddlewareList();
         $response = $middlewareList->handle($request, $finalRequestHandler);
 
-        $this->assertEquals($response, $expectedResponse);
+        $this->assertSame($response, $expectedResponse);
     }
 
     /**
@@ -58,7 +58,7 @@ class MiddlewareListTest extends TestCase
         $middlewareList->add('/api/v1/test2', $middleware);
         $response = $middlewareList->handle($request, $finalRequestHandler);
 
-        $this->assertEquals($response, $expectedResponse);
+        $this->assertSame($response, $expectedResponse);
     }
 
     /**
@@ -82,7 +82,7 @@ class MiddlewareListTest extends TestCase
         $middlewareList->add('/api/v1/test', $middleware);
         $response = $middlewareList->handle($request, $finalRequestHandler);
 
-        $this->assertEquals($response, $expectedResponse);
+        $this->assertSame($response, $expectedResponse);
     }
 
     /**
@@ -107,7 +107,7 @@ class MiddlewareListTest extends TestCase
 
         $response = $middlewareList->handle($request, $finalRequestHandler);
 
-        $this->assertEquals($response, $expectedResponse);
+        $this->assertSame($response, $expectedResponse);
     }
 
     /**

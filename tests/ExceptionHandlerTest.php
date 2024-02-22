@@ -26,7 +26,7 @@ class ExceptionHandlerTest extends TestCase
 
         $response = $handler->handle(new Exception());
 
-        $this->assertEquals($response, $expectedResponse);
+        $this->assertSame($response, $expectedResponse);
     }
 
     public static function provideHandleData() : array

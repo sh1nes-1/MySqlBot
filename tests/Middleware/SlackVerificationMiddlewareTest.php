@@ -41,7 +41,7 @@ class SlackVerificationMiddlewareTest extends TestCase
 
         $response = $slackVerificationMiddleware->handle($request);
 
-        $this->assertEquals($expectedResponse, $response);
+        $this->assertSame($expectedResponse, $response);
     }
 
 }
