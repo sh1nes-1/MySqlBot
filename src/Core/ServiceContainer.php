@@ -4,6 +4,7 @@ namespace Sh1ne\MySqlBot\Core;
 
 use InvalidArgumentException;
 use ReflectionClass;
+use ReflectionException;
 
 class ServiceContainer
 {
@@ -27,8 +28,9 @@ class ServiceContainer
 
     /**
      * @template T
+     * @template F of T
      * @param class-string<T> $abstract
-     * @param T $instance
+     * @param F $instance
      *
      * @return void
      */
@@ -65,10 +67,9 @@ class ServiceContainer
 
     /**
      * @template T
-     * @template F of T
      * @param class-string<T> $abstract
      *
-     * @return F
+     * @return T
      */
     public function get(string $abstract)
     {
@@ -99,16 +100,20 @@ class ServiceContainer
 
     private function instantiateConcrete(string $concrete) : mixed
     {
-        if (!class_exists($concrete)) {
-            throw new InvalidArgumentException("Class '$concrete' does not exist");
-        }
-
         // TODO: think about optimization (reflection is slow)
 
-        $reflection = new ReflectionClass($concrete);
+        try {
+            $reflection = new ReflectionClass($concrete);
+        } catch (ReflectionException $exception) {
+            throw new InvalidArgumentException($exception->getMessage());
+        }
 
         if ($reflection->isAbstract()) {
             throw new InvalidArgumentException("Class '$concrete' cannot be instantiated as it is abstract");
+        }
+
+        if ($reflection->isInterface()) {
+            throw new InvalidArgumentException("Interface '$concrete' cannot be instantiated");
         }
 
         $constructor = $reflection->getConstructor();
