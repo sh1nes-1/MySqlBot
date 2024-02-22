@@ -32,7 +32,22 @@ class ExceptionHandler extends ExceptionHandlerContract
             ];
         }
 
-        return $this->responseFactory->json($data, 422);
+        return $this->responseFactory->json($data, 500);
+    }
+
+    public function handleShutdown() : Response
+    {
+        $data = [
+            'message' => 'An error occurred',
+        ];
+
+        if (AppConfig::isDebugMode()) {
+            $data['last_error'] = error_get_last();
+        }
+
+        Log::critical('App shut down', error_get_last());
+
+        return $this->responseFactory->json($data, 500);
     }
 
 }

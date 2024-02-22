@@ -9,7 +9,11 @@ class AppConfig
 
     public static function isDebugMode() : bool
     {
-        return self::getBool('APP_DEBUG');
+        try {
+            return self::getBool('APP_DEBUG');
+        } catch (InvalidArgumentException) {
+            return true;
+        }
     }
 
     public static function getBotName() : string

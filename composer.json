@@ -6,7 +6,10 @@
     "autoload": {
         "psr-4": {
             "Sh1ne\\MySqlBot\\": "src/"
-        }
+        },
+        "files": [
+            "src/Core/Util/helpers.php"
+        ]
     },
     "authors": [
         {

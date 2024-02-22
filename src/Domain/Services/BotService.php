@@ -8,7 +8,6 @@ use Sh1ne\MySqlBot\Core\Database\DbException;
 use Sh1ne\MySqlBot\Core\Database\ReadOnlyException;
 use Sh1ne\MySqlBot\Core\Database\SqlQuery;
 use Sh1ne\MySqlBot\Core\Log;
-use Sh1ne\MySqlBot\Data\AppMention\AppMentionDto;
 use Sh1ne\MySqlBot\Domain\Messenger\Messenger;
 use Sh1ne\MySqlBot\Domain\ResultFormat\ResultFormatFactory;
 

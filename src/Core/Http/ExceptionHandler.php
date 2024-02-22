@@ -16,4 +16,6 @@ abstract class ExceptionHandler
 
     abstract public function handle(Throwable $throwable) : Response;
 
+    abstract public function handleShutdown() : Response;
+
 }

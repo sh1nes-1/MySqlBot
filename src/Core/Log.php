@@ -2,6 +2,8 @@
 
 namespace Sh1ne\MySqlBot\Core;
 
+use Throwable;
+
 class Log
 {
 
@@ -13,7 +15,7 @@ class Log
 
     public static function init(string $filename) : void
     {
-        static::$filename = $filename;
+        static::$filename = realpath($filename);
         static::$traceId = (string) random_int(100000000, 999999999);
         static::$isInitialized = true;
     }
@@ -21,6 +23,11 @@ class Log
     public static function debug(string $message, array $context = []) : void
     {
         self::log('DEBUG', $context, $message);
+    }
+
+    public static function warning(string $message, array $context = []) : void
+    {
+        self::log('WARNING', $context, $message);
     }
 
     public static function info(string $message, array $context = []) : void
@@ -47,7 +54,11 @@ class Log
 
         $message = "[$dateTime][$traceId][$level] $message $contextJson\n";
 
-        file_put_contents(static::$filename, $message, FILE_APPEND);
+        try {
+            file_put_contents(static::$filename, $message, FILE_APPEND);
+        } catch (Throwable) {
+            // TODO: think about
+        }
     }
 
 }

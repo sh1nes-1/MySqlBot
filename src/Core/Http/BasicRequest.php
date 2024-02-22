@@ -48,7 +48,7 @@ class BasicRequest implements Request
     {
         $contentType = $this->header('Content-Type');
 
-        if (str_contains($contentType, 'application/json')) {
+        if ($contentType && str_contains($contentType, 'application/json')) {
             return json_decode($this->rawBody(), true);
         }
 

@@ -9,9 +9,9 @@ abstract class Middleware implements RequestHandler
 
     protected ResponseFactory $responseFactory;
 
-    public function __construct(ResponseFactory $responseFactory)
+    public function __construct()
     {
-        $this->responseFactory = $responseFactory;
+        $this->responseFactory = app(ResponseFactory::class);
     }
 
     public function setNext(RequestHandler $next) : void
