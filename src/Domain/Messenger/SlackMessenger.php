@@ -6,6 +6,7 @@ use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
+use Sh1ne\MySqlBot\Core\Config\AppConfig;
 
 class SlackMessenger implements Messenger
 {
@@ -16,9 +17,15 @@ class SlackMessenger implements Messenger
 
     private string $threadTs;
 
-    public function __construct(Client $client, string $channel, string $threadTs)
+    public function __construct(string $channel, string $threadTs)
     {
-        $this->client = $client;
+        $this->client = new Client([
+            'base_uri' => AppConfig::getSlackApiBaseUrl(),
+            'headers' => [
+                'Authorization' => 'Bearer ' . AppConfig::getSlackApiKey(),
+            ],
+        ]);
+
         $this->channel = $channel;
         $this->threadTs = $threadTs;
     }

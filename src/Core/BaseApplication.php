@@ -2,6 +2,9 @@
 
 namespace Sh1ne\MySqlBot\Core;
 
+use Sh1ne\MySqlBot\Core\Config\AppConfig;
+use Sh1ne\MySqlBot\Core\Database\BasicDbConnection;
+use Sh1ne\MySqlBot\Core\Database\DbConnection;
 use Sh1ne\MySqlBot\Core\ErrorHandler\BasicErrorHandler;
 use Sh1ne\MySqlBot\Core\ErrorHandler\ErrorHandler;
 use Sh1ne\MySqlBot\Core\Http\BasicOutput;
@@ -23,7 +26,16 @@ abstract class BaseApplication
         $container->singletonByInstance(Output::class, new BasicOutput());
         $container->singletonByInstance(ResponseFactory::class, new BasicResponseFactory());
         $container->singletonByInstance(Request::class, new BasicRequest());
+
         $container->singleton(Router::class, Router::class);
+
+        $container->singletonByInstance(DbConnection::class, new BasicDbConnection(
+            AppConfig::getDbHost(),
+            AppConfig::getDbPort(),
+            AppConfig::getDbUser(),
+            AppConfig::getDbPassword(),
+            AppConfig::getDbName()
+        ));
 
         $this->register();
     }

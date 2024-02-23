@@ -2,10 +2,7 @@
 
 namespace Sh1ne\MySqlBot\Controllers;
 
-use GuzzleHttp\Client;
-use Sh1ne\MySqlBot\Core\Config\AppConfig;
-use Sh1ne\MySqlBot\Core\Database\BasicDbConnection;
-use Sh1ne\MySqlBot\Core\Database\DbConnectionWithLog;
+use Sh1ne\MySqlBot\Core\Database\DbConnection;
 use Sh1ne\MySqlBot\Core\Http\Controller;
 use Sh1ne\MySqlBot\Core\Http\Request;
 use Sh1ne\MySqlBot\Core\Http\Response;
@@ -22,24 +19,10 @@ class SlackController extends Controller
         // TODO: determine which DTO to instantiate, as there is single URL for all events
         $appMentionDto = new AppMentionDto($request->body());
 
-        $dbConnection = new BasicDbConnection(
-            AppConfig::getDbHost(),
-            AppConfig::getDbPort(),
-            AppConfig::getDbUser(),
-            AppConfig::getDbPassword(),
-            AppConfig::getDbName()
-        );
+        // TODO: custom facade DB with static methods to prevent creating DbConnection everywhere??
+        $dbConnection = app(DbConnection::class);
 
-        $dbConnection = new DbConnectionWithLog($dbConnection);
-
-        $client = new Client([
-            'base_uri' => AppConfig::getSlackApiBaseUrl(),
-            'headers' => [
-                'Authorization' => 'Bearer ' . AppConfig::getSlackApiKey(),
-            ],
-        ]);
-
-        $messenger = new SlackMessenger($client, $appMentionDto->event->channel, $appMentionDto->event->ts);
+        $messenger = new SlackMessenger($appMentionDto->event->channel, $appMentionDto->event->ts);
 
         (new BotService($dbConnection, $messenger))->processAppMention($appMentionDto->event->text);
 
