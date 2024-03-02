@@ -3,7 +3,7 @@
 namespace Sh1ne\MySqlBot\Domain\Services;
 
 use Sh1ne\MySqlBot\Core\Config\AppConfig;
-use Sh1ne\MySqlBot\Core\Database\DbConnection;
+use Sh1ne\MySqlBot\Core\Database\DB;
 use Sh1ne\MySqlBot\Core\Database\DbException;
 use Sh1ne\MySqlBot\Core\Database\ReadOnlyException;
 use Sh1ne\MySqlBot\Core\Database\SqlQuery;
@@ -14,13 +14,10 @@ use Sh1ne\MySqlBot\Domain\ResultFormat\ResultFormatFactory;
 class BotService
 {
 
-    private DbConnection $dbConnection;
-
     private Messenger $messenger;
 
-    public function __construct(DbConnection $dbConnection, Messenger $messenger)
+    public function __construct(Messenger $messenger)
     {
-        $this->dbConnection = $dbConnection;
         $this->messenger = $messenger;
     }
 
@@ -35,7 +32,7 @@ class BotService
         try {
             $sqlQuery = new SqlQuery($sql);
 
-            $result = $this->dbConnection->query($sqlQuery);
+            $result = DB::query($sqlQuery);
 
             $resultFormat = (new ResultFormatFactory())->make($sqlQuery, $result);
 
