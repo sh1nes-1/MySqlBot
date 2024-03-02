@@ -23,13 +23,23 @@ To run this project, you will need to add the environment variables to your .env
 
 ## Running locally
 
-### Web server
+### Set environment variables
+
+To run this project, you will need to add the environment variables to your .env file from .env.example
+
+### Install dependencies
+
+```shell
+composer install
+```
+
+### Run web server
 
 ```shell
 cd public & php -S 127.0.0.1:8000
 ```
 
-### Worker
+### Run worker
 
 ```shell
 php worker.php
