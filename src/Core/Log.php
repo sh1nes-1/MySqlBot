@@ -16,7 +16,7 @@ class Log
     public static function init(string $filename) : void
     {
         static::$filename = realpath($filename);
-        static::$traceId = (string) random_int(100000000, 999999999);
+        static::$traceId = (string) mt_rand(100000000, 999999999);
         static::$isInitialized = true;
     }
 
