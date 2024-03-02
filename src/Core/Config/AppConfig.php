@@ -86,6 +86,11 @@ class AppConfig
         return self::get('AMQP_PASSWORD');
     }
 
+    public static function getResultMessageFormat() : string
+    {
+        return self::get('RESULT_MESSAGE_FORMAT');
+    }
+
     private static function getBool(string $key) : bool
     {
         $value = self::get($key);

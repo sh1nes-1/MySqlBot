@@ -5,6 +5,7 @@ Bot for Slack written in PHP that executes SQL queries and sends results back to
 ## Features
 
 - Execute SQL queries and get results back
+- Changing format of the result message (csv_message, csv_file or sql_file)
 
 ## Roadmap
 
@@ -13,8 +14,6 @@ Bot for Slack written in PHP that executes SQL queries and sends results back to
 - Ability to set timeout for query
 - Ability to drop running query
 - Multiple SQL queries in one message
-- Selecting result output (File, Message)
-- Selecting formats for results (CSV, SQL)
 - Wait for approve from another person before executing SQL query
 
 ## Environment Variables
