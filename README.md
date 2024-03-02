@@ -16,3 +16,21 @@ Bot for Slack written in PHP that executes SQL queries and sends results back to
 - Selecting result output (File, Message)
 - Selecting formats for results (CSV, SQL)
 - Wait for approve from another person before executing SQL query
+
+## Environment Variables
+
+To run this project, you will need to add the environment variables to your .env file from .env.example
+
+## Running locally
+
+### Web server
+
+```shell
+cd public & php -S 127.0.0.1:8000
+```
+
+### Worker
+
+```shell
+php worker.php
+```
