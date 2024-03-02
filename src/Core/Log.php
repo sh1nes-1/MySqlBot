@@ -30,6 +30,11 @@ class Log
         self::log('WARNING', $context, $message);
     }
 
+    public static function error(string $message, array $context = []) : void
+    {
+        self::log('ERROR', $context, $message);
+    }
+
     public static function info(string $message, array $context = []) : void
     {
         self::log('INFO', $context, $message);

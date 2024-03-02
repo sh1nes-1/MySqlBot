@@ -11,7 +11,7 @@ use Sh1ne\MySqlBot\Middleware\LogRequestsMiddleware;
 use Sh1ne\MySqlBot\Middleware\SlackAuthorization;
 use Sh1ne\MySqlBot\Middleware\SlackVerificationMiddleware;
 
-$application = new Application();
+$application = new Application(__DIR__);
 
 $kernel = new Kernel($application);
 $kernel->boot();

@@ -18,6 +18,8 @@ use Sh1ne\MySqlBot\Core\Http\Router;
 abstract class BaseApplication
 {
 
+    abstract public function getBaseDirectory() : string;
+
     public function registerServices() : void
     {
         $container = ServiceContainer::instance();

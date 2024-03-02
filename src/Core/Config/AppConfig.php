@@ -16,6 +16,11 @@ class AppConfig
         }
     }
 
+    public static function getHandleEventQueueName() : string
+    {
+        return self::get('HANDLE_EVENT_QUEUE_NAME');
+    }
+
     public static function getBotName() : string
     {
         return self::get('BOT_NAME');
@@ -61,11 +66,38 @@ class AppConfig
         return self::get('DB_NAME');
     }
 
+    public static function getAmqpHost() : string
+    {
+        return self::get('AMQP_HOST');
+    }
+
+    public static function getAmqpPort() : int
+    {
+        return self::getInt('AMQP_PORT');
+    }
+
+    public static function getAmqpUser() : string
+    {
+        return self::get('AMQP_USER');
+    }
+
+    public static function getAmqpPassword() : string
+    {
+        return self::get('AMQP_PASSWORD');
+    }
+
     private static function getBool(string $key) : bool
     {
         $value = self::get($key);
 
         return filter_var($value, FILTER_VALIDATE_BOOL);
+    }
+
+    private static function getInt(string $key) : int
+    {
+        $value = self::get($key);
+
+        return intval($value);
     }
 
     private static function get(string $key) : string

@@ -2,6 +2,7 @@
 
 namespace Sh1ne\MySqlBot\Core\Http;
 
+use Dotenv\Dotenv;
 use Sh1ne\MySqlBot\Core\BaseApplication;
 use Sh1ne\MySqlBot\Core\ErrorHandler\ErrorHandler;
 use Throwable;
@@ -18,6 +19,8 @@ class Kernel
 
     public function boot() : void
     {
+        Dotenv::createImmutable($this->application->getBaseDirectory())->safeLoad();
+
         $this->application->registerServices();
 
         $this->setupErrorHandler();
