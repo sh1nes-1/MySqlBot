@@ -49,6 +49,7 @@ class JobDispatch
             return;
         }
 
+        // This is done to prevent dispatching it again in the worker immediately after handling job
         $this->shouldDispatch = false;
 
         app(Dispatcher::class)->dispatch($this);
