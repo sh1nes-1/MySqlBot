@@ -29,10 +29,14 @@ class Worker
                     $job = $jobDispatch->getJob();
 
                     $job->handle();
+
+                    Log::info('Job finished', [
+                        'job_id' => $jobDispatch->getId(),
+                    ]);
                 } catch (Throwable $exception) {
                     Log::error('Job execution failed', [
                         'job_id' => $jobDispatch->getId(),
-                        'exception' => $exception,
+                        'exception' => (array) $exception,
                     ]);
                 }
             } else {

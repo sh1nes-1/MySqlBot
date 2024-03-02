@@ -5,6 +5,8 @@ namespace Sh1ne\MySqlBot\Core\Queue;
 class JobDispatch
 {
 
+    protected bool $shouldDispatch;
+
     protected Job $job;
 
     protected string $id;
@@ -13,6 +15,7 @@ class JobDispatch
 
     public function __construct(Job $job)
     {
+        $this->shouldDispatch = true;
         $this->job = $job;
         $this->id = uniqid();
         $this->queue = 'default';
@@ -42,6 +45,12 @@ class JobDispatch
 
     public function __destruct()
     {
+        if (!$this->shouldDispatch) {
+            return;
+        }
+
+        $this->shouldDispatch = false;
+
         app(Dispatcher::class)->dispatch($this);
     }
 

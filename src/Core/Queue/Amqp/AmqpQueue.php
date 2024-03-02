@@ -56,6 +56,8 @@ class AmqpQueue implements Queue
     {
         $message = $this->channel->basic_get($this->name);
 
+        $message->ack();
+
         $serializedJob = $message->getBody();
 
         return unserialize($serializedJob);

@@ -6,6 +6,7 @@ use Sh1ne\MySqlBot\Core\Config\AppConfig;
 use Sh1ne\MySqlBot\Core\Http\Controller;
 use Sh1ne\MySqlBot\Core\Http\Request;
 use Sh1ne\MySqlBot\Core\Http\Response;
+use Sh1ne\MySqlBot\Core\Log;
 use Sh1ne\MySqlBot\Jobs\HandleEventJob;
 
 class SlackController extends Controller
@@ -15,7 +16,11 @@ class SlackController extends Controller
     {
         $job = new HandleEventJob($request->body());
 
-        $job->dispatch()->onQueue(AppConfig::getHandleEventQueueName());
+        $dispatch = $job->dispatch()->onQueue(AppConfig::getHandleEventQueueName());
+
+        Log::info('Dispatched job', [
+            'dispatch_id' => $dispatch->getId(),
+        ]);
 
         return $this->responseFactory->json([
             'success' => 'true',
