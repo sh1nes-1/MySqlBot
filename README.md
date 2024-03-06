@@ -2,6 +2,11 @@
 
 Bot for Slack written in PHP that executes SQL queries and sends results back to a user in a thread.
 
+Example message to run SQL query
+```
+@MySqlBot SELECT * FROM users LIMIT 1
+```
+
 ## Features
 
 - Execute SQL queries and get results back
@@ -15,6 +20,14 @@ Bot for Slack written in PHP that executes SQL queries and sends results back to
 - Ability to drop running query
 - Multiple SQL queries in one message
 - Wait for approve from another person before executing SQL query
+
+## Creating slack bot
+
+1. Create app on https://api.slack.com/apps
+2. Add app credentials to environment variables
+3. Enable Events
+4. Set webhook url to endpoint `/api/v1/slack/events`
+5. Subscribe to `app_mention` event
 
 ## Environment Variables
 
