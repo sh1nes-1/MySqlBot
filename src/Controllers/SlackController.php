@@ -2,7 +2,7 @@
 
 namespace Sh1ne\MySqlBot\Controllers;
 
-use Sh1ne\MySqlBot\Core\Config\AppConfig;
+use Sh1ne\MySqlBot\Config\AppConfig;
 use Sh1ne\MySqlBot\Core\Http\Controller;
 use Sh1ne\MySqlBot\Core\Http\Request;
 use Sh1ne\MySqlBot\Core\Http\Response;

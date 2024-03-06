@@ -3,7 +3,7 @@
 namespace Sh1ne\MySqlBot\Domain\ResultFormat;
 
 use InvalidArgumentException;
-use Sh1ne\MySqlBot\Core\Config\AppConfig;
+use Sh1ne\MySqlBot\Config\AppConfig;
 use Sh1ne\MySqlBot\Core\Database\QueryResult;
 use Sh1ne\MySqlBot\Core\Database\SqlQuery;
 

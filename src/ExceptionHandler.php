@@ -2,7 +2,7 @@
 
 namespace Sh1ne\MySqlBot;
 
-use Sh1ne\MySqlBot\Core\Config\AppConfig;
+use Sh1ne\MySqlBot\Config\AppConfig;
 use Sh1ne\MySqlBot\Core\Http\ExceptionHandler as ExceptionHandlerContract;
 use Sh1ne\MySqlBot\Core\Http\Response;
 use Sh1ne\MySqlBot\Core\Log;

@@ -2,7 +2,7 @@
 
 namespace Sh1ne\MySqlBot\Core;
 
-use Sh1ne\MySqlBot\Core\Config\AppConfig;
+use Sh1ne\MySqlBot\Config\AppConfig;
 use Sh1ne\MySqlBot\Core\Database\BasicDbConnection;
 use Sh1ne\MySqlBot\Core\Database\DbConnection;
 use Sh1ne\MySqlBot\Core\ErrorHandler\BasicErrorHandler;

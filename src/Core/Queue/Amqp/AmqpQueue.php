@@ -6,7 +6,7 @@ use Exception;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
-use Sh1ne\MySqlBot\Core\Config\AppConfig;
+use Sh1ne\MySqlBot\Config\AppConfig;
 use Sh1ne\MySqlBot\Core\Queue\JobDispatch;
 use Sh1ne\MySqlBot\Core\Queue\Queue;
 

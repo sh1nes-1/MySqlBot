@@ -1,7 +1,7 @@
 <?php
 
 use Sh1ne\MySqlBot\Application;
-use Sh1ne\MySqlBot\Core\Config\AppConfig;
+use Sh1ne\MySqlBot\Config\AppConfig;
 use Sh1ne\MySqlBot\Core\Console\Kernel;
 use Sh1ne\MySqlBot\Core\Queue\Amqp\AmqpQueue;
 use Sh1ne\MySqlBot\Core\Queue\Worker;

@@ -1,10 +1,11 @@
 <?php
 
-namespace Sh1ne\MySqlBot\Core\Config;
+namespace Sh1ne\MySqlBot\Config;
 
 use InvalidArgumentException;
+use Sh1ne\MySqlBot\Core\Config\Config;
 
-class AppConfig
+class AppConfig extends Config
 {
 
     public static function isDebugMode() : bool
@@ -89,25 +90,6 @@ class AppConfig
     public static function getResultMessageFormat() : string
     {
         return self::get('RESULT_MESSAGE_FORMAT');
-    }
-
-    private static function getBool(string $key) : bool
-    {
-        $value = self::get($key);
-
-        return filter_var($value, FILTER_VALIDATE_BOOL);
-    }
-
-    private static function getInt(string $key) : int
-    {
-        $value = self::get($key);
-
-        return intval($value);
-    }
-
-    private static function get(string $key) : string
-    {
-        return Env::get($key) ?? throw new InvalidArgumentException("$key environment variable is not set");
     }
 
 }

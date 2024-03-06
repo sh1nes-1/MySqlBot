@@ -2,8 +2,8 @@
 
 namespace Sh1ne\MySqlBot\Middleware;
 
+use Sh1ne\MySqlBot\Config\AppConfig;
 use Sh1ne\MySqlBot\Core\Clock;
-use Sh1ne\MySqlBot\Core\Config\AppConfig;
 use Sh1ne\MySqlBot\Core\Http\Middleware;
 use Sh1ne\MySqlBot\Core\Http\Request;
 use Sh1ne\MySqlBot\Core\Http\Response;

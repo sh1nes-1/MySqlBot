@@ -2,7 +2,7 @@
 
 namespace Sh1ne\MySqlBot\Domain\Services;
 
-use Sh1ne\MySqlBot\Core\Config\AppConfig;
+use Sh1ne\MySqlBot\Config\AppConfig;
 use Sh1ne\MySqlBot\Core\Database\DB;
 use Sh1ne\MySqlBot\Core\Database\DbException;
 use Sh1ne\MySqlBot\Core\Database\ReadOnlyException;
