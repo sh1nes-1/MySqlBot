@@ -2,6 +2,7 @@
 
 namespace Sh1ne\MySqlBot\Middleware;
 
+use Sh1ne\MySqlBot\Config\AppConfig;
 use Sh1ne\MySqlBot\Core\Http\Middleware;
 use Sh1ne\MySqlBot\Core\Http\Request;
 use Sh1ne\MySqlBot\Core\Http\Response;
@@ -13,11 +14,15 @@ class LogRequestsMiddleware extends Middleware
     // TODO: change error handler logic to go here too
     public function handle(Request $request) : Response
     {
-        // TODO: do not log headers on production
-        Log::info("Request {$request->method()} {$request->uri()}", [
+        $requestData = [
             'body' => $request->body(),
-            'headers' => $request->headers(),
-        ]);
+        ];
+
+        if (AppConfig::isDebugMode()) {
+            $requestData['headers'] = $request->headers();
+        }
+
+        Log::info("Request {$request->method()} {$request->uri()}", $requestData);
 
         $timeBefore = microtime(true);
 
